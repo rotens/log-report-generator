@@ -1,0 +1,14 @@
+2026-05-06 14:23:32 INFO Application started
+2026-05-06 14:23:52 WARNING Application could not establish secure connection with external server. Default unsecure mode is being used
+2026-05-06 14:25:52 ERROR Application could not establish connection with DB. Reason: timeout
+
+2026-5-06 14:26:32 INFO Application shut down
+2026-05-06 14:27:32 INFO Application started
+2026-05-06 14:27:42 DEBUG Test message
+2026-05-06 14:28:32  WARNING High disk usage
+2026-05-06 14:28:52 WARNING  High CPU usage
+2026-05-06 14:29:32 INFO Application shut down
+2026-05-07 13:23:32 INFO Application started
+2026-05-07 14:23:2 INFO Secure connection with external server established
+2026-05-07 14:29:32 INFO Application shut down
+This is not a valid log entry

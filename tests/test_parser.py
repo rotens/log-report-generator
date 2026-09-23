@@ -66,8 +66,19 @@ def test_parse_supported_log_level(log_level):
     assert actual.log_level == log_level
 
 
-def test_parse_timestamp_without_zero_padding_returns_none():
-    line = "2026-6-24 14:32:10 ERROR Invalid timestamp format"
+@pytest.mark.parametrize(
+    "timestamp",
+    [
+        "026-06-24 14:32:10",
+        "2026-6-24 14:32:10",
+        "2026-06-4 14:32:10",
+        "2026-06-24 4:32:10",
+        "2026-06-24 14:2:10",
+        "2026-06-24 14:32:1",
+    ],
+)
+def test_parse_timestamp_with_incorrect_width_returns_none(timestamp: str):
+    line = f"{timestamp} ERROR Invalid timestamp format"
 
     actual = parser.parse_log_line(line)
 
@@ -94,6 +105,20 @@ def test_parse_line_with_leading_whitespace_returns_none():
 def test_parse_line_with_trailing_whitespace_returns_none():
     line = "2026-06-24 14:32:10 INFO Application started   "
 
+    actual = parser.parse_log_line(line)
+
+    assert actual is None
+
+
+@pytest.mark.parametrize(
+    "line",
+    [
+        "2026-06-24 14:32:10  INFO Application started",
+        "2026-06-24 14:32:10 INFO  Application started",
+        "2026-06-24\t14:32:10 INFO Application started",
+    ],
+)
+def test_parse_line_with_invalid_separator_returns_none(line: str):
     actual = parser.parse_log_line(line)
 
     assert actual is None

@@ -20,18 +20,20 @@ def parse_log_line(line: str) -> LogEntry | None:
     if line[0].isspace() or line[-1].isspace():
         return None
 
-    parts = line.split(maxsplit=3)
+    parts = line.split(" ", maxsplit=3)
 
     if len(parts) != 4:
         return None
 
     date_text, time_text, log_level, message = parts
 
+    if not message or message[0].isspace():
+        return None
+
     timestamp_text = f"{date_text} {time_text}"
 
     if TIMESTAMP_PATTERN.fullmatch(timestamp_text) is None:
         return None
-
 
     if log_level not in SUPPORTED_LOG_LEVELS:
         return None
